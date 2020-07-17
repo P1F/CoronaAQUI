@@ -6,4 +6,5 @@ window.onload = function(){
         center: [-45.875243, -23.202833],
         zoom: 14
     });
+    map.addControl(new mapboxgl.NavigationControl());
 }
