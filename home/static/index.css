@@ -1,0 +1,38 @@
+body{
+    margin: 0;
+    font-family: 'Poppins';
+}
+
+#header{
+    width: 100%;
+    height: 60px;
+    background-color: #000000;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.headerelem{
+    color: #ffffff;
+    padding: 10px;
+}
+
+#entrar, #cadastrar{
+    position: absolute;
+    width: 130px;
+    cursor: pointer;
+}
+
+#entrar{
+    right:150px;
+}
+
+#cadastrar{
+    right: 0px;
+}
+
+#entrar:hover, #cadastrar:hover{
+    background-color: rgb(29, 29, 29);
+    font-size: 18px;
+}
