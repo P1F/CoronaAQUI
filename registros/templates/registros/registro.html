@@ -8,4 +8,12 @@
         <li>Endereço: {{ registro.address }}
     </ul>
 
+    <h2>Avaliações</h2>
+    <ul>
+        {% for cliente in clientes %}
+            <li>{{ cliente }} </li>
+        {% empty %}
+            <li>Empresa não avaliada ainda.</li>
+        {% endfor %}
+    </ul>
 {% endblock %}

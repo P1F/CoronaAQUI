@@ -10,5 +10,6 @@ def index(request):
 def registro(request, registro_id):
     registro = Registro.objects.get(id=registro_id)
     return render(request, "registros/registro.html", {
-        "registro": registro
+        "registro": registro,
+        "clientes": registro.clientes.all()
     })
