@@ -1,0 +1,11 @@
+{% extends "registros/layout.html" %}
+
+{% block body %}
+
+    <h1>Empresas {{ registro.name }}</h1>
+    <ul>
+        <li>Nota: {{ registro.grade }}
+        <li>Endereço: {{ registro.address }}
+    </ul>
+
+{% endblock %}
