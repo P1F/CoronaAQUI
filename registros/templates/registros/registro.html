@@ -17,5 +17,15 @@
         {% endfor %}
     </ul>
 
+    <h2>Avaliar</h2>
+    <form action="{% url 'avaliar' registro.id %}" method="post">
+        {% csrf_token %}
+        <select name="cliente">
+            {% for cliente in non_clientes %}
+                <option value="{{ cliente.id }}">{{ cliente.first }} {{ cliente.last }}</option>
+            {% endfor %}
+        </select>
+        <input type="submit">
+    </form>  
     <a href="{% url 'index' %} ">Voltar para página anterior</a>
 {% endblock %}
