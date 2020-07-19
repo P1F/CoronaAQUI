@@ -6,5 +6,17 @@ window.onload = function(){
         center: [-45.875243, -23.202833],
         zoom: 14
     });
+    map.addControl(
+        new MapboxGeocoder({
+            accessToken: mapboxgl.accessToken,
+            mapboxgl: mapboxgl
+        })
+    );
     map.addControl(new mapboxgl.NavigationControl());
+    map.addControl(
+        new mapboxgl.GeolocateControl({
+            positionOptions: { enableHighAccuracy: true },
+            trackUserLocation: true
+        })
+    );
 }
