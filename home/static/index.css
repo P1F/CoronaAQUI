@@ -53,11 +53,21 @@ div{
 #corpo{
     background-image: linear-gradient(#bef4f4, #ffffff);
     min-height: calc(100vh - 60px);
+    justify-content: center;
+    display: flex;
+    padding-top: 60px;
+}
+
+#container{
+    width: 90%;
+    background-color: #ffffff;
+    border: .2px solid #2194b1;
 }
 
 #map{
     width: 60%;
     height:400px;
+    float: right;
 }
 
 #menu-container{
@@ -71,6 +81,7 @@ div{
     color: #ffffff;
     border-radius: 5px;
     box-shadow: 2px 1px #b6ebf8;
+    z-index: 3;
 }
 
 .menu-head{
@@ -92,6 +103,7 @@ div{
     width: 290px;
     right: 5px;
     top: 60px;
+    z-index: 3;
 }
 
 #login-box{
@@ -167,3 +179,5 @@ div{
       transform: rotate(359deg);
     }
   }
+
+
