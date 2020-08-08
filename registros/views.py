@@ -41,8 +41,8 @@ def registrar_usuario(request):
             return JsonResponse(erros)
         else:
             Usuários(name=nome, email = email, password = senha, user = user).save()
-            newid = list(Usuários.objects.filter(user=user).values('id'))[0]['id']
-            return JsonResponse({'id':newid, 'ok': True})
+            request.session['username'] = user
+            return JsonResponse({'ok': True, 'user':user})
     else:
         return JsonResponse({'erros':'metodo invalido'})
 
@@ -64,6 +64,11 @@ def entrar(request):
             erros['ok'] = False
             return JsonResponse(erros)
         else:
-            return JsonResponse({'ok': True})
+            request.session['username'] = user
+            return JsonResponse({'ok': True, 'user':user})
     else:
         return JsonResponse({'erros':'metodo invalido'})
+
+def finalizar_sessao(request):
+    request.session.pop('username', None)
+    return JsonResponse({'ok':True})
