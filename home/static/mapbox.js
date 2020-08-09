@@ -25,6 +25,9 @@ window.onload = function(){
         accessToken: mapboxgl.accessToken,
         alternatives: true,
         unit: 'metric',
+        language: 'pt-BR',
+        placeholderOrigin: 'Selecione o ponto de partida.',
+        placeholderDestination: 'Selecione o destino.',
     });
 
     map.addControl(
@@ -33,14 +36,22 @@ window.onload = function(){
     );
 
     map.on('load', function() {
-
+        
         geolocate.trigger();
-        geolocate.on('geolocate', function(pos) {
-            var lon = pos.coords.longitude;
-            var lat = pos.coords.latitude
-            var position = [lon, lat];
-            console.log(position);
-      });
+        geolocate.on('geolocate', function(position) {
+            var coordinatesObject = 
+            {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            }
+            localStorage.setItem('coordinates', JSON.stringify(coordinatesObject));
+        });
+        
+        let objFromLocalStorage = localStorage.getItem('coordinates');
+        var current = JSON.parse(objFromLocalStorage);
+        console.log(current);
+        directions.setOrigin([current.lng, current.lat]);
+
     });
 
 }
