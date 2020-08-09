@@ -8,6 +8,19 @@ import re
 from .models import Empresas, Usuários, Avaliações
 # Create your views here.
 
+def index(request):
+    return render(request, "registros/index.html", {
+        "empresas": Empresas.objects.all()
+    })
+
+def avaliacao(request, empresa_id):
+    empresa = Empresas.objects.get(id=empresa_id)
+    avaliacao = Avaliações.objects.all()
+    return render(request, "registros/avaliacao.html", {
+        "empresa": empresa,
+        "avaliadores": Avaliações.user.all()
+        })
+
 def registrar_usuario(request):
     if request.method == 'POST':
         erros = {}
