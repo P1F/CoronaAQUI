@@ -28,8 +28,10 @@ window.onload = function(){
         language: 'pt-BR',
         placeholderOrigin: 'Selecione o ponto de partida.',
         placeholderDestination: 'Selecione o destino.',
+        controls: {
+            inputs: false
+        }
     });
-
     map.addControl(
         directions,
         'top-left'
@@ -51,6 +53,11 @@ window.onload = function(){
         var current = JSON.parse(objFromLocalStorage);
         console.log(current);
         directions.setOrigin([current.lng, current.lat]);
+
+        map.on('click', function(){
+            var destination = directions.getDestination();
+            console.log(destination);
+        });
 
     });
 
