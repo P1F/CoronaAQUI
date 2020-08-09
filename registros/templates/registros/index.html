@@ -5,6 +5,7 @@
     <ul>
         {% for empresa in empresas %}
             <li><h2>
+                <a href="{% url 'avaliacao' empresa.id %}">
                 {{ empresa.name }} </h2><b>NOTA: {{ empresa.grade }}</b> Endereço {{ empresa.address }}
                 </a>
             </li>

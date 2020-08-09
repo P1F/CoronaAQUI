@@ -2,12 +2,18 @@
 
 {% block body %}
 
- <h1>Empresas {{ empresa.name }}</h1>
+ <h1>{{ empresa.name }}</h1>
     <ul>
         <li>Nota: {{ empresa.grade }}
         <li>Endereço: {{ empresa.address }}
     </ul>
-
-    
+    <ul>
+        <h2>Avaliações</h2>
+        {% for avaliacao in avaliacoes %}
+            <li>{{ avaliacao }} </li>
+        {% empty %}
+            <li>Empresa não avaliada ainda.</li>
+        {% endfor %}
+    </ul>
 
 {% endblock %}

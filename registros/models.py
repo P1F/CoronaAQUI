@@ -18,14 +18,14 @@ class Usuários(models.Model):
     user = models.CharField(max_length=64)
 
     def __str__(self):
-        return f"ID: {self.id} NOME: {self.name} EMAIL: {self.email} SENHA: {self.password} USUÁRIO: {self.user}"
+        return f"{self.name}"
 
 class Avaliações(models.Model):
     id = models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')
     user = models.ManyToManyField(Usuários, blank=True, related_name="usuário")
-    empresa = models.ManyToManyField(Empresas, blank=True, related_name="empresa")
+    empresa = models.ManyToManyField(Empresas, blank=True, related_name="empresas")
     comment = models.CharField(max_length=300, default='Não deixou comentários sobre o estabelecimento.')
     grade = models.IntegerField()
 
     def __str__(self):
-        return f"ID: {self.id} {self.empresa} DE: {self.user} PARA: {self.empresa} NOTA: {self.grade} COMENTÁRIO: {self.comment}"
+        return f"{self.user.name} NOTA: {self.grade} COMENTÁRIO: {self.comment}"

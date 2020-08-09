@@ -15,10 +15,10 @@ def index(request):
 
 def avaliacao(request, empresa_id):
     empresa = Empresas.objects.get(id=empresa_id)
-    avaliacao = Avaliações.objects.all()
+    avaliacao = Avaliações.objects.filter(empresa=empresa_id)
     return render(request, "registros/avaliacao.html", {
         "empresa": empresa,
-        "avaliadores": Avaliações.user.all()
+        "avaliacoes": avaliacao
         })
 
 def registrar_usuario(request):
