@@ -115,10 +115,12 @@ def obter_empresas(request):
 
 def buscar_empresa(request):
     data = json.loads(request.body)
-    empresa = Empresas.objects.filter(longitude = data['long'], latitude = data['lat'])
+    lat = round(data['lat'], 4)
+    longi = round(data['long'], 4)
+    empresa = Empresas.objects.filter(longitude = longi, latitude = lat)
     if empresa.count() == 0:
-        Empresas(address=data['endereco'], name = data['nome'], grade = -1, longitude = data['long'], latitude = data['lat']).save()
-        empresa = Empresas.objects.filter(longitude = data['long'], latitude = data['lat'])
+        Empresas(address=data['endereco'], name = data['nome'], grade = -1, longitude = longi, latitude = lat).save()
+        empresa = Empresas.objects.filter(longitude = longi, latitude = lat)
     return JsonResponse(dict(list(empresa.values())[0]))
 
 def generate_avaliacao(request):

@@ -10,7 +10,7 @@ class Empresas(models.Model):
     latitude = models.FloatField(default='0.00')
 
     def __str__(self):
-        return f"{self.name}"
+        return f"{self.name} {self.latitude} {self.longitude}"
 
 class Usuários(models.Model):
     id = models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')
