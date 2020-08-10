@@ -98,3 +98,10 @@ def get_avaliacoes(request):
             avaliacoes_arr.append({'empresa':list(avaliacao.empresa.all())[0].name, 'comentario':avaliacao.comment, 'nota':avaliacao.grade})
 
     return render(request, "registros/minhas-avaliacoes.html", {"user" : user, "avaliacoes" : avaliacoes_arr})
+
+def obter_empresas(request):
+    empresas = Empresas.objects.all()
+    dicionario = {}
+    for empresa in empresas:
+        print(empresa.latitude)
+    return JsonResponse(dicionario)
