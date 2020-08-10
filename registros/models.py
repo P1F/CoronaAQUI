@@ -26,14 +26,15 @@ class Usuários(models.Model):
 class Avaliações(models.Model):
     id = models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')
     user = models.ManyToManyField(Usuários, blank=True, related_name="usuário")
+    username = models.CharField(max_length=64, default='Sem nome')
+    empresaname = models.CharField(max_length=64, default='Sem nome')
     user_id = models.IntegerField(default=0)
     empresa = models.ManyToManyField(Empresas, blank=True, related_name="empresas")
     empresa_id = models.IntegerField(default=0)
     comment = models.CharField(max_length=300, default='Não deixou comentários sobre o estabelecimento.')
     grade = models.IntegerField()
-
     def __str__(self):
-        return f"ID: {self.id} USER:{self.user} NOTA: {self.grade} COMENTÁRIO: {self.comment}"
+        return f"USUÁRIO: {self.username} PARA EMPRESA: {self.empresaname} NOTA: {self.grade} COMENTÁRIO: {self.comment}"
 
 class CustomerForm(ModelForm):
 	class Meta:

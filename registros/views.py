@@ -19,21 +19,28 @@ def avaliacao(request, empresa_id):
         user = request.session['username']
         userid = list(Usuários.objects.filter(user=user).values('id'))[0]['id']
 
-    empresa = Empresas.objects.get(id=empresa_id)
+        empresa = Empresas.objects.get(id=empresa_id)
+        avaliacao = Avaliações.objects.filter(empresa_id=empresa_id)
+        usuarios = Usuários.objects.filter(id=userid)
+        if request.method == 'POST':
+            data = dict(request.POST)
+            comment = data['comment'][0]
+            grade = data['grade'][0]
+            form = CustomerForm(request.POST)
+        if form.is_valid():
+            Avaliações(comment=comment, grade=grade, empresa_id=empresa_id, user_id=userid, empresaname=empresa.name, username=user).save()
+        return render(request, "registros/avaliacao.html", {
+            "empresa": empresa,
+            "avaliacoes": avaliacao,
+            "usuarios": usuarios,
+            "userid": userid,
+            "form": form
+            })
     avaliacao = Avaliações.objects.filter(empresa_id=empresa_id)
-
-    if request.method == 'POST':
-        data = dict(request.POST)
-        comment = data['comment'][0]
-        grade = data['grade'][0]
-        form = CustomerForm(request.POST)
-    if form.is_valid():
-        Avaliações(comment=comment, grade=grade, empresa_id=empresa_id, user_id=userid).save()
     return render(request, "registros/avaliacao.html", {
-        "empresa": empresa,
-        "avaliacoes": avaliacao,
-        "form": form
-        })
+        "avaliacoes": avaliacao
+    })
+
 
 def registrar_usuario(request):
     if request.method == 'POST':

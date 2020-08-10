@@ -10,7 +10,7 @@
     <ul>
         <h2>Avaliações</h2>
         {% for avaliacao in avaliacoes %}
-            <li>{{ avaliacao }} </li>
+            <li>    {{ avaliacao }} </li>
         {% empty %}
             <li>Empresa não avaliada ainda.</li>
         {% endfor %}
@@ -19,5 +19,7 @@
 	{% csrf_token %}
 	{{form}}
 	<input type="submit">
+    <br>
+    <a href="{% url 'index' %} ">Voltar para página anterior</a>
 
 {% endblock %}
