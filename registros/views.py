@@ -105,3 +105,7 @@ def obter_empresas(request):
     for empresa in empresas:
         print(empresa.latitude)
     return JsonResponse(dicionario)
+
+def buscar_empresa(request):
+    print(dict(request.POST))
+    return JsonResponse({'ok': ''})

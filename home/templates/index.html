@@ -8,7 +8,6 @@
         <link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet'/>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
-        <link href="{% static 'index.css' %}" rel='stylesheet'/>
         <link href='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.css' rel='stylesheet'/>
         <link
             rel="stylesheet"
@@ -23,14 +22,23 @@
         <script src='https://api.mapbox.com/mapbox-gl-js/v1.11.1/mapbox-gl.js'></script>
         <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.5.1/mapbox-gl-geocoder.min.js"></script>
         <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.0.2/mapbox-gl-directions.js"></script>
+        <link href="{% static 'index.css' %}" rel='stylesheet'/>
     </head>
 {% endblock %}
 
 
 {% block body %}
     <div id='container'>
-        <div id='map'></div>
-        <div id="geocoder" class="geocoder"></div>
+        <div id='left'>
+            <div id='buscar-mapa'><i class="fa fa-search"></i>Buscar:</div>
+            <div id="geocoder" class="geocoder"></div>
+        </div>
+        <div id='right'>
+            <div id='map'></div>
+            <div id='info-empresa'>
+                Ola
+            </div>
+        </div>
     </div>    
 {% endblock %}
 
