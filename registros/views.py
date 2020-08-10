@@ -114,3 +114,20 @@ def buscar_empresa(request):
         Empresas(address=data['endereco'], name = data['nome'], grade = -1, longitude = data['long'], latitude = data['lat']).save()
         empresa = Empresas.objects.filter(longitude = data['long'], latitude = data['lat'])
     return JsonResponse(dict(list(empresa.values())[0]))
+
+def generate_avaliacao(request):
+    # AQUI PADEIRAO, JA TO RECEBENDO O REQUEST COM AS INFOS DA AVALIACAO
+    print(dict(request.POST))
+
+    if request.method == 'POST':
+        erros = {}
+        if request.session.has_key('username'):
+            user = request.session['username']
+            userid = list(Usuários.objects.filter(user=user).values('id'))[0]['id']
+        else:
+            erros['login'] = 'Você deve estar logado para fazer uma avaliação'
+        erros['ok'] = True
+        return JsonResponse(erros)
+        
+    else:
+        return JsonResponse({'ok':False})

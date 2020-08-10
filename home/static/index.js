@@ -7,6 +7,9 @@ function hideCadastro(username){
     document.getElementsByName('session-user')[0].textContent = username
 }
 
+function verAvaliacoes(){
+    window.open('registros/' + document.getElementById('id-empresa').value.toString())
+}
 
 document.getElementById('entrar').addEventListener('click', function(){
     document.getElementById('register-container').style.display = 'none'
@@ -110,6 +113,36 @@ document.getElementById('send-register').addEventListener('click', function(){
                 hideCadastro(data['user'])
             }
             document.getElementById('rotateregister').style.display = 'none'
+        }
+    };
+    xhr.send(formdata)
+
+})
+
+document.getElementById('send-avaliacao').addEventListener('click', function(){
+    showLoader()
+    document.getElementsByName('erronota')[0] = ''
+    document.getElementsByName('errocomentario')[0] = ''
+    document.getElementsByName('errologin')[0] = ''
+
+    var formdata = new FormData(document.getElementById('form-avaliacao'))
+
+    var xhr = new XMLHttpRequest;
+    xhr.open('POST', 'registros/generate-avaliacao')
+    xhr.onreadystatechange = function () {
+        if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+            var data = JSON.parse(xhr.responseText)
+            if (!data['ok']){
+                Object.keys(data).forEach((key, index)=>{
+                    if (key!='ok')
+                        document.getElementById('erro'+key).textContent = data[key]
+                })
+                hideLoader()
+            }else{
+                hideModal()
+                hideLoader()
+                alert('Avaliação enviada com sucesso!')
+            }
         }
     };
     xhr.send(formdata)

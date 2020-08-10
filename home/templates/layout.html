@@ -102,22 +102,25 @@
                     <span class="tipo_de_letra2">CoronaAQUI!</span>
                 </div>
                 <div class="modal2-body">
-                    <input class='hide' id='id-empresa' value=''></input>
+                    <form id='form-avaliacao'>
+                        <input class='hide' id='id-empresa' value='' name='id-empresa'></input>
 
-                    <div class='title'>Nota:</div>
-                    <div class='div-input'>
-                        <input class='avaliar-input' type='number' name='nota' step=1 min=0 max =10>
-                    </div>
-                    <div class='errormsg' id='erronota'></div>
+                        <div class='title'>Nota:</div>
+                        <div class='div-input'>
+                            <input class='avaliar-input' type='number' name='nota' step=1 min=0 max =10>
+                        </div>
+                        <div class='errormsg' name='erronota'></div>
 
-                    <div class='title'>Comentários:</div>
-                        <textarea class='avaliar-input'></textarea>
-                    </div>
-                    <div class='errormsg' id='errocomentario'></div>
+                        <div class='title'>Comentários:</div>
+                            <textarea class='avaliar-input' name='comentarios'></textarea>
+                        </div>
+                        <div class='errormsg' name='errocomentario'></div>
 
-                    <div class="btn-wrapper">
-                        <a class="myButton">Avaliar Local</a>
-                    </div>
+                        <div class="btn-wrapper" id='send-avaliacao'>
+                            <a class="myButton">Avaliar</a>
+                        </div>
+                        <div class='errormsg' name='errologin' style="margin-bottom: 10px;"></div>
+                    </form>
 
                 </div>
             </div>
