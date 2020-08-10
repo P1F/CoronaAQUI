@@ -6,9 +6,11 @@ class Empresas(models.Model):
     address = models.CharField(max_length=200)
     name = models.CharField(max_length=101)
     grade = models.IntegerField()
+    longitude = models.FloatField(default='0.00')
+    latitude = models.FloatField(default='0.00')
 
-    def __str__(self):
-        return f"ID: {self.id} NOME: {self.name} ENDEREÇO: {self.address} NOTA_FINAL: {self.grade}"
+    def str(self):
+        return f"ID: {self.id} NOME: {self.name} ENDEREÇO: {self.address} NOTA_FINAL: {self.grade} COORDENADAS: (lng,lat)=({self.longitude},{self.latitude})"
 
 class Usuários(models.Model):
     id = models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')
@@ -28,4 +30,4 @@ class Avaliações(models.Model):
     grade = models.IntegerField()
 
     def __str__(self):
-        return f"{self.user.name} NOTA: {self.grade} COMENTÁRIO: {self.comment}"
+        return f"ID: {self.id} USER:{self.user} NOTA: {self.grade} COMENTÁRIO: {self.comment}"

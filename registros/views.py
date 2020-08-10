@@ -19,7 +19,7 @@ def avaliacao(request, empresa_id):
     return render(request, "registros/avaliacao.html", {
         "empresa": empresa,
         "avaliacoes": avaliacao
-        })
+    })
 
 def registrar_usuario(request):
     if request.method == 'POST':
@@ -85,3 +85,16 @@ def entrar(request):
 def finalizar_sessao(request):
     request.session.pop('username', None)
     return JsonResponse({'ok':True})
+
+def get_avaliacoes(request):
+    user = None
+    avaliacoes_arr = []
+
+    if request.session.has_key('username'):
+        user = request.session['username']
+        userid = list(Usuários.objects.filter(user=user).values('id'))[0]['id']
+        avaliacoes = Avaliações.objects.filter(user__id=userid)
+        for avaliacao in avaliacoes:
+            avaliacoes_arr.append({'empresa':list(avaliacao.empresa.all())[0].name, 'comentario':avaliacao.comment, 'nota':avaliacao.grade})
+
+    return render(request, "registros/minhas-avaliacoes.html", {"user" : user, "avaliacoes" : avaliacoes_arr})
