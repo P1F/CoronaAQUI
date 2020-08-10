@@ -18,11 +18,13 @@ def index(request):
 def avaliacao(request, empresa_id):
     empresa = Empresas.objects.get(id=empresa_id)
     avaliacao = Avaliações.objects.filter(empresa_id=empresa_id)
-
+    media = empresa.grade
+    if media == -1:
+        media = 'Sem avalições'
     return render(request, "registros/avaliacao.html", {
         "empresa": empresa,
         "avaliacoes": avaliacao,
-        "media": empresa.grade
+        "media": media
     })
 
 def registrar_usuario(request):
