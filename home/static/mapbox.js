@@ -54,7 +54,8 @@ window.onload = function(){
         
         let objFromLocalStorage = localStorage.getItem('coordinates');
         var current = JSON.parse(objFromLocalStorage);
-        directions.setOrigin([current.lng, current.lat]);
+        if (current)
+            directions.setOrigin([current.lng, current.lat]);
 
         map.on('click', function(){
             var destination = directions.getDestination();
