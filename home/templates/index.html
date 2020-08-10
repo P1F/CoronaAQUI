@@ -1,6 +1,9 @@
 {% extends "layout.html" %}
 {% load static %}
 {% block head %}
+    {% if message %}
+        <div>{{ message }}</div>
+    {% endif %}
     <head>
         <title>CORONAQUI!</title>
         <link rel="shortcut icon" type="image/png" href="{% static 'lupa.png' %}"/>

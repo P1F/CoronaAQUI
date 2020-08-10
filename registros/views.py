@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.http import HttpResponse
 from django.http import JsonResponse
+from django.db.models import Avg
 import re
 import json
 
@@ -16,10 +17,13 @@ def index(request):
 
 def avaliacao(request, empresa_id):
     empresa = Empresas.objects.get(id=empresa_id)
-    avaliacao = Avaliações.objects.filter(empresa=empresa_id)
+    avaliacao = Avaliações.objects.filter(empresa_id=empresa_id)
+    media = Avaliações.objects.filter(empresa_id=empresa_id).aggregate(Avg('grade'))
+
     return render(request, "registros/avaliacao.html", {
         "empresa": empresa,
-        "avaliacoes": avaliacao
+        "avaliacoes": avaliacao,
+        "media": media,
     })
 
 def registrar_usuario(request):
@@ -117,13 +121,36 @@ def buscar_empresa(request):
 
 def generate_avaliacao(request):
     # AQUI PADEIRAO, JA TO RECEBENDO O REQUEST COM AS INFOS DA AVALIACAO
-    print(dict(request.POST))
+    data = dict(request.POST)
+    comment = data['comentarios'][0]
+    grade = data['nota'][0]
+    empresa_id = data['id-empresa'][0]
+    erros = {}
+
+    if len(grade) == 0:
+        erros['nota'] = 'Inserir nota'
+        erros['ok'] = False
+        return JsonResponse(erros)
+    elif int(grade) > 10:
+        erros['nota'] = 'Nota deve estar entre 0 e 10'
+        erros['ok'] = False
+        return JsonResponse(erros)
+    elif int(grade) < 0:
+        erros['nota'] = 'Nota deve estar entre 0 e 10'
+        erros['ok'] = False
+        return JsonResponse(erros)
+
+    if len(comment) > 300:
+        erros['comentarios'] = 'Máximo de 300 caractéres'
+        erros['ok'] = False
+        return JsonResponse(erros)
 
     if request.method == 'POST':
-        erros = {}
         if request.session.has_key('username'):
             user = request.session['username']
             userid = list(Usuários.objects.filter(user=user).values('id'))[0]['id']
+            empresa = Empresas.objects.get(id=empresa_id)
+            Avaliações(comment=comment, grade=grade, empresa_id=empresa_id, user_id=userid, empresaname=empresa.name, username=user).save()
         else:
             erros['login'] = 'Você deve estar logado para fazer uma avaliação'
         erros['ok'] = True
