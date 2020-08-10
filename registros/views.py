@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.http import JsonResponse
 import re
 
-from .models import Empresas, Usuários, Avaliações
+from .models import Empresas, Usuários, Avaliações, CustomerForm
 # Create your views here.
 
 def index(request):
@@ -14,11 +14,21 @@ def index(request):
     })
 
 def avaliacao(request, empresa_id):
+    form = CustomerForm()
     empresa = Empresas.objects.get(id=empresa_id)
-    avaliacao = Avaliações.objects.filter(empresa=empresa_id)
+    avaliacao = Avaliações.objects.filter(empresa_id=empresa_id)
+
+    if request.method == 'POST':
+        data = dict(request.POST)
+        comment = data['comment'][0]
+        grade = data['grade'][0]
+        form = CustomerForm(request.POST)
+    if form.is_valid():
+        Avaliações(comment=comment, grade=grade, empresa_id=empresa_id).save()
     return render(request, "registros/avaliacao.html", {
         "empresa": empresa,
-        "avaliacoes": avaliacao
+        "avaliacoes": avaliacao,
+        "form": form
         })
 
 def registrar_usuario(request):
