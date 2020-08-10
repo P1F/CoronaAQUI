@@ -1,4 +1,5 @@
 window.onload = function(){
+
     mapboxgl.accessToken = 'pk.eyJ1Ijoicm9kcmlnb3RzIiwiYSI6ImNrY3BucmhoMTAyNmkyeWxwYmRzZThwZTEifQ.Mil0VvYyOw8lkJNANz_WdA';
     var map = new mapboxgl.Map({
         container: 'map',
@@ -40,7 +41,8 @@ window.onload = function(){
     );
 
     map.on('load', function() {
-        
+        hideLoader()
+
         geolocate.trigger();
         geolocate.on('geolocate', function(position) {
             var coordinatesObject = 
@@ -66,20 +68,28 @@ window.onload = function(){
 
     async function carrega_empresa(e){
         data = {'nome': '', 'endereco': '', 'lat': 0.0, 'long': 0.0}
-        await new Promise(r=>setTimeout(r, 3000))
+        await new Promise(r=>setTimeout(r, 2500))
+        var endereco = document.getElementsByClassName('mapboxgl-ctrl-geocoder--input')[0].value
+        idx = endereco.indexOf(', ')
         coord = map.getCenter()
         data['lat'] = coord.lat
         data['long'] = coord.lng
-        f = e.target.parentNode
-        data['nome'] = f.children[0].textContent
-        data['endereco'] = f.children[1].textContent.trim()
+        data['nome'] = endereco.substring(0, idx)
+        data['endereco'] = endereco.substring(idx+2)
+
         var xhr = new XMLHttpRequest;
         xhr.open('POST', 'registros/buscar-empresa')
         xhr.onreadystatechange = function () {
             if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
-                console.log(xhr.responseText)
+                var data = JSON.parse(xhr.responseText)
+                var nota = data['grade'] == -1 ? 'Ainda não há avaliações' : data['grade']
+                var nome = data['name']
+                var endereco = data['address']
+                var id = data['id']
+                console.log(nota.toString() + '/' + nome + '/' + endereco + '/' + id.toString())
+                
             }
-        };
+        }
         xhr.send(JSON.stringify(data))
     }
 

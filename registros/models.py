@@ -9,7 +9,7 @@ class Empresas(models.Model):
     longitude = models.FloatField(default='0.00')
     latitude = models.FloatField(default='0.00')
 
-    def str(self):
+    def __str__(self):
         return f"ID: {self.id} NOME: {self.name} ENDEREÇO: {self.address} NOTA_FINAL: {self.grade} COORDENADAS: (lng,lat)=({self.longitude},{self.latitude})"
 
 class Usuários(models.Model):

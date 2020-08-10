@@ -24,6 +24,11 @@
         <script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.0.2/mapbox-gl-directions.js"></script>
         <link href="{% static 'index.css' %}" rel='stylesheet'/>
     </head>
+
+    <script>
+        function showLoader(){document.getElementsByClassName('loader-wrapper')[0].style.display = 'flex'}
+        function hideLoader(){document.getElementsByClassName('loader-wrapper')[0].style.display = 'none'}
+    </script>
 {% endblock %}
 
 

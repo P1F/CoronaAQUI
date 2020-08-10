@@ -95,6 +95,10 @@
             {% block body %}{% endblock %}
         </div>
 
+        <div class="loader-wrapper">
+            <span class="loader"><span class="loader-inner"></span></span>
+        </div>
+
         <script src = "{% static 'mapbox.js' %}"></script>
         <script src = "{% static 'index.js' %}"></script>
         {% if request.session.username %}

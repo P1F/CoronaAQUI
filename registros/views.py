@@ -4,6 +4,7 @@ from django.urls import reverse
 from django.http import HttpResponse
 from django.http import JsonResponse
 import re
+import json
 
 from .models import Empresas, Usuários, Avaliações
 # Create your views here.
@@ -107,5 +108,9 @@ def obter_empresas(request):
     return JsonResponse(dicionario)
 
 def buscar_empresa(request):
-    print(dict(request.POST))
-    return JsonResponse({'ok': ''})
+    data = json.loads(request.body)
+    empresa = Empresas.objects.filter(longitude = data['long'], latitude = data['lat'])
+    if empresa.count() == 0:
+        Empresas(address=data['endereco'], name = data['nome'], grade = -1, longitude = data['long'], latitude = data['lat']).save()
+        empresa = Empresas.objects.filter(longitude = data['long'], latitude = data['lat'])
+    return JsonResponse(dict(list(empresa.values())[0]))
