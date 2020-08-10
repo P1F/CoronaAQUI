@@ -95,6 +95,34 @@
             {% block body %}{% endblock %}
         </div>
 
+        <div id="myModal" class="modal2" onclick='hideModal(event)'>
+            <div class="modal2-content">
+                <div class="modal2-header">
+                    <span class="close" onclick='hideModal()'>&times;</span>
+                    <span class="tipo_de_letra2">CoronaAQUI!</span>
+                </div>
+                <div class="modal2-body">
+                    <input class='hide' id='id-empresa' value=''></input>
+
+                    <div class='title'>Nota:</div>
+                    <div class='div-input'>
+                        <input class='avaliar-input' type='number' name='nota' step=1 min=0 max =10>
+                    </div>
+                    <div class='errormsg' id='erronota'></div>
+
+                    <div class='title'>Comentários:</div>
+                        <textarea class='avaliar-input'></textarea>
+                    </div>
+                    <div class='errormsg' id='errocomentario'></div>
+
+                    <div class="btn-wrapper">
+                        <a class="myButton">Avaliar Local</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
         <div class="loader-wrapper">
             <span class="loader"><span class="loader-inner"></span></span>
         </div>

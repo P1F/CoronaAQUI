@@ -45,12 +45,10 @@ window.onload = function(){
 
         geolocate.trigger();
         geolocate.on('geolocate', function(position) {
-            var coordinatesObject = 
-            {
+            var coordinatesObject = {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
             }
-            console.log(coordinatesObject)
             localStorage.setItem('coordinates', JSON.stringify(coordinatesObject));
         });
         
@@ -67,6 +65,9 @@ window.onload = function(){
     });
 
     async function carrega_empresa(e){
+        document.getElementById('inforotate').style.display = 'block'
+        document.getElementById('info-hide-show').classList.add("hide")
+
         data = {'nome': '', 'endereco': '', 'lat': 0.0, 'long': 0.0}
         await new Promise(r=>setTimeout(r, 2500))
         var endereco = document.getElementsByClassName('mapboxgl-ctrl-geocoder--input')[0].value
@@ -82,12 +83,13 @@ window.onload = function(){
         xhr.onreadystatechange = function () {
             if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
                 var data = JSON.parse(xhr.responseText)
-                var nota = data['grade'] == -1 ? 'Ainda não há avaliações' : data['grade']
-                var nome = data['name']
-                var endereco = data['address']
-                var id = data['id']
-                console.log(nota.toString() + '/' + nome + '/' + endereco + '/' + id.toString())
-                
+                var nota = data['grade']
+                document.getElementById('info-nome').textContent = 'Nome: ' + data['name'].toString()
+                document.getElementById('info-endereço').textContent = 'Endereço: ' + data['address'].toString()
+                document.getElementById('id-empresa').value = data['id']
+
+                document.getElementById('info-hide-show').classList.remove("hide")
+                document.getElementById('inforotate').style.display = 'none'
             }
         }
         xhr.send(JSON.stringify(data))

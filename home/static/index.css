@@ -136,6 +136,15 @@ div{
     outline-width: 0;
 }
 
+.avaliar-input{
+    border: none;
+    border-bottom: solid 1px;
+    background-color: transparent;
+    color: #000000;
+    text-align: center;
+    outline-width: 0;
+}
+
 .div-input{
     display: flex;
     justify-content: center;
@@ -258,4 +267,151 @@ div{
     75% { height: 100%;}
     100% { height: 0%;}
   }
+
+  #customers {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
   
+  #customers td, #customers th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  #customers tr:nth-child(even){background-color: #f2f2f2;}
+  
+  #customers tr:hover {background-color: #ddd;}
+  
+  #customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #2194b1;
+    color: white;
+  }
+
+/* The Modal */
+.modal2 {
+    display: none;  /*Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(43,83,143,0.75); 
+  }
+  
+  
+  .modal2-content {
+    left: 50%;
+    top: 50%;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    background-color: #fefefe;
+    /*border: 1px solid #888;*/
+    border-radius: 4px;
+    width: 30%; /* Full width */
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+  }
+  
+  @-webkit-keyframes animatetop {
+    from {top:0; opacity:0} 
+    to {top:50%; opacity:1}
+  }
+  
+  @keyframes animatetop {
+    from {top:0; opacity:0}
+    to {top:50%; opacity:1}
+  }
+  
+  .close {
+    color: black;
+    float: right;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: gray;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .modal2-header {
+    padding: 2px 16px;
+    font-size: 18px;
+    background: #2a6086;
+    text-align: center;  
+    color: #ffffff;
+  }
+  
+  .modal2-body {
+    padding: 8px 16px;    
+    font-weight: 400;
+    font-family: 'Poppins', sans-serif;
+    text-align: center; 
+  }
+  .modal3-body {
+    padding: 8px 16px;    
+    font-weight: 400;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+  }
+
+  .myButton {
+    box-shadow: 0px 10px 14px -7px #275b73;
+    background:linear-gradient(to bottom, #04b4e0 5%, #5294b3 100%);
+    background-color:#04b4e0;
+    border-radius:4px;
+    border:1px solid #386ab5;
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-family:Arial;
+    font-size:13px;
+    font-weight:bold;
+    padding:8px 12px;
+    text-decoration:none;
+    text-shadow:0px 1px 0px #0b99bd;
+}
+.myButton:hover {
+    background:linear-gradient(to bottom, #5294b3 5%, #04b4e0 100%);
+    background-color:#5294b3;
+}
+.myButton:active {
+    position:relative;
+    top:1px;
+}
+
+#button{
+    position: relative;
+    top: 100%;
+    left: 45%;
+}
+
+.btn-wrapper{
+    margin-top: 20px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+a.mapboxgl-ctrl-logo{
+    width: 0px !important;
+}
+
+.checked {
+    color: orange;
+  }
+
+#info-hide-show{
+  padding-top: 10px;
+}

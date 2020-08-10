@@ -28,6 +28,8 @@
     <script>
         function showLoader(){document.getElementsByClassName('loader-wrapper')[0].style.display = 'flex'}
         function hideLoader(){document.getElementsByClassName('loader-wrapper')[0].style.display = 'none'}
+        function showModal(){document.getElementById('myModal').style.display = 'block'}
+        function hideModal(event){var modal = document.getElementById('myModal');if (!event){modal.style.display = 'none'}else{if(event.target==modal){modal.style.display = 'none'}}}
     </script>
 {% endblock %}
 
@@ -41,7 +43,24 @@
         <div id='right'>
             <div id='map'></div>
             <div id='info-empresa'>
-                Ola
+                <div class='hide' id='info-hide-show'>
+                    <div id = 'info-nome'></div>
+                    <div id = 'info-endereço'></div>
+                    <div id = 'info-nota'>
+                            Nota:  
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                                <span class="fa fa-star"></span>
+                    </div>
+                    <div id = 'button'>
+                        <a class="myButton">Avaliar Local</a>
+                    </div>
+                </div>
+                <div style="display: flex; justify-content: center; padding: 20px;">
+                    <i class="fa fa-circle-o-notch rotate" id ='inforotate' aria-hidden="true"></i>
+                </div>
             </div>
         </div>
     </div>    

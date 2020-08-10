@@ -1,15 +1,21 @@
 {% extends "registros/layout.html" %}
 
 {% block body %}
-    <h1>Avaliações de: {{ user }}</h1>
-    <ul>
+
+    <table id="customers">
+        <tr>
+          <th>Empresa</th>
+          <th>Nota</th>
+          <th>Comentário</th>
+        </tr>
+
         {% for avaliacao in avaliacoes %}
-            <li>
-                    Empresa: {{ avaliacao.empresa }}<br>
-                    Nota: {{ avaliacao.nota }}<br>
-                    Comentário: {{ avaliacao.comentario }}
-            </li><br>
+        <tr>
+            <td>{{ avaliacao.empresa }}</td>
+            <td>{{ avaliacao.nota }}</td>
+            <td>{{ avaliacao.comentario }}</td>
+        </tr>
         {% endfor %}
-    </ul>
+    </table>
 
 {% endblock %}
