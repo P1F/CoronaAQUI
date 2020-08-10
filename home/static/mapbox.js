@@ -83,11 +83,29 @@ window.onload = function(){
         xhr.onreadystatechange = function () {
             if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
                 var data = JSON.parse(xhr.responseText)
-                var nota = data['grade']
+
                 document.getElementById('info-nome').textContent = 'Nome: ' + data['name'].toString()
                 document.getElementById('info-endereço').textContent = 'Endereço: ' + data['address'].toString()
-                document.getElementById('id-empresa').value = data['id']
 
+                document.getElementById('id-empresa').value = data['id']
+                var estrelas = document.getElementsByClassName('estrela')
+                document.getElementById('sem-avaliacao').classList.add('hide')
+
+                for (var i=0; i<5; i++){
+                    estrelas[i].classList.add('fa-star')
+                    estrelas[i].classList.remove('fa-star-half')
+                    if (i < Math.ceil(data['grade']/2))
+                        estrelas[i].classList.add('checked')
+                    else
+                        estrelas[i].classList.remove('checked')
+                }
+                if (data['grade']%2 == 1 && data['grade']!= -1){
+                    estrelas[Math.floor(data['grade']/2)].classList.add('fa-star-half')
+                    estrelas[Math.floor(data['grade']/2)].classList.remove('fa-star')
+                }
+                if(data['grade'] == -1)
+                    document.getElementById('sem-avaliacao').classList.remove('hide')
+                
                 document.getElementById('info-hide-show').classList.remove("hide")
                 document.getElementById('inforotate').style.display = 'none'
             }
