@@ -18,12 +18,11 @@ def index(request):
 def avaliacao(request, empresa_id):
     empresa = Empresas.objects.get(id=empresa_id)
     avaliacao = Avaliações.objects.filter(empresa_id=empresa_id)
-    media = Avaliações.objects.filter(empresa_id=empresa_id).aggregate(Avg('grade'))
 
     return render(request, "registros/avaliacao.html", {
         "empresa": empresa,
         "avaliacoes": avaliacao,
-        "media": media,
+        "media": empresa.grade
     })
 
 def registrar_usuario(request):
@@ -121,7 +120,6 @@ def buscar_empresa(request):
     return JsonResponse(dict(list(empresa.values())[0]))
 
 def generate_avaliacao(request):
-    # AQUI PADEIRAO, JA TO RECEBENDO O REQUEST COM AS INFOS DA AVALIACAO
     data = dict(request.POST)
     comment = data['comentarios'][0]
     grade = data['nota'][0]
@@ -140,10 +138,9 @@ def generate_avaliacao(request):
         erros['nota'] = 'Nota deve estar entre 0 e 10'
         erros['ok'] = False
         return JsonResponse(erros)
-
         
     if len(comment) > 300:
-        erros['comentarios'] = 'Máximo de 300 caractéres'
+        erros['comentario'] = 'Máximo de 300 caractéres'
         erros['ok'] = False
         return JsonResponse(erros)
 
@@ -153,9 +150,13 @@ def generate_avaliacao(request):
             userid = list(Usuários.objects.filter(user=user).values('id'))[0]['id']
             empresa = Empresas.objects.get(id=empresa_id)
             Avaliações(comment=comment, grade=grade, empresa_id=empresa_id, user_id=userid, empresaname=empresa.name, username=user).save()
+            media = Avaliações.objects.filter(empresa_id=empresa_id).aggregate(Avg('grade'))
+            empresa.grade = round(media['grade__avg'])
+            empresa.save()
+            erros['ok'] = True
         else:
             erros['login'] = 'Você deve estar logado para fazer uma avaliação'
-        erros['ok'] = True
+            erros['ok'] = False
         return JsonResponse(erros)
         
     else:

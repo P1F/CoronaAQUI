@@ -15,7 +15,7 @@
 
         <div id='header'>
             <div id='logo' class='headerelem'>corona AQUI</div>
-            <img src = "{% static 'lupa.png' %}" style='height:30px'>
+            <a href='..'><img src = "{% static 'lupa.png' %}" style='height:30px'></a>
             <div id='entrar' class='headerelem hide'>Entrar <i class="fa fa-sign-in" aria-hidden="true"></i></div>
             <div id='cadastrar' class='headerelem hide'>Registrar <i class="fa fa-pencil-square-o" aria-hidden="true"></i></div>
             <div id='user-menu' class='headerelem hide'> 
@@ -100,7 +100,7 @@
         </div>
 
 
-        <div id='corpo'>
+        <div id='corpo-registros'>
             {% block body %}{% endblock %}
         </div>
 

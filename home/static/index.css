@@ -58,6 +58,12 @@ div{
     padding-top: 60px;
 }
 
+#corpo-registros{
+    background-image: linear-gradient(#bef4f4, #ffffff);
+    min-height: calc(100vh - 60px);
+    padding-top: 60px;
+}
+
 #container{
     width: 90%;
     background-color: #ffffff;

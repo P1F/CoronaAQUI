@@ -121,9 +121,9 @@ document.getElementById('send-register').addEventListener('click', function(){
 
 document.getElementById('send-avaliacao').addEventListener('click', function(){
     showLoader()
-    document.getElementsByName('erronota')[0] = ''
-    document.getElementsByName('errocomentario')[0] = ''
-    document.getElementsByName('errologin')[0] = ''
+    document.getElementsByName('erronota')[0].textContent = ''
+    document.getElementsByName('errocomentario')[0].textContent = ''
+    document.getElementsByName('errologin')[0].textContent = ''
 
     var formdata = new FormData(document.getElementById('form-avaliacao'))
 
@@ -132,10 +132,11 @@ document.getElementById('send-avaliacao').addEventListener('click', function(){
     xhr.onreadystatechange = function () {
         if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
             var data = JSON.parse(xhr.responseText)
+            console.log(data)
             if (!data['ok']){
                 Object.keys(data).forEach((key, index)=>{
                     if (key!='ok')
-                        document.getElementById('erro'+key).textContent = data[key]
+                        document.getElementsByName('erro'+key)[0].textContent = data[key]
                 })
                 hideLoader()
             }else{

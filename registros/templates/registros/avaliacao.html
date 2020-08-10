@@ -1,31 +1,28 @@
 {% extends "registros/layout.html" %}
 
 {% block body %}
-    <header>
-    <h2> Avaliações  {{ empresa.name }}</h2>
-    </header>
-    <br><br>
-    <footer>
-     <table id="customers">
-        <tr>
-          <th>Usuários</th>
-          <th>Nota {{ media.grade__avg|floatformat:"0" }} </th>
-          <th>Comentários</th>
-        </tr>
+    <h2>Avaliações de {{ empresa.name }}</h2>
+    <h2>Média: {{ empresa.grade }}</h2>
+    <div>
+        <table id="customers">
+            <tr>
+            <th>Usuários</th>
+            <th>Nota</th>
+            <th>Comentários</th>
+            </tr>
 
-        {% for avaliacao in avaliacoes %}
-        <tr>
-            <td>{{ avaliacao.username }}</td>
-            <td>{{ avaliacao.grade }}</td>
-            <td>{{ avaliacao.comment }}</td>
-        </tr>
-        {% empty %}
-            <td>Nenhuma avaliação realizada</td>
-            <td></td>
-            <td></td>
-        {% endfor %}
-    </table>
-    </footer>
-        <a href="{% url 'index' %} ">Voltar para página anterior</a>
+            {% for avaliacao in avaliacoes %}
+            <tr>
+                <td>{{ avaliacao.username }}</td>
+                <td>{{ avaliacao.grade }}</td>
+                <td>{{ avaliacao.comment }}</td>
+            </tr>
+            {% empty %}
+                <td>Nenhuma avaliação realizada</td>
+                <td></td>
+                <td></td>
+            {% endfor %}
+        </table>
+    </div>
 
 {% endblock %}
