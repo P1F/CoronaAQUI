@@ -1,0 +1,81 @@
+var places = {
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -54.611716,
+          -20.50174
+        ]
+      },
+      "properties": {
+        "name": "UFMS",
+        "phone": "(67) 3222-5579",
+        "address": "R. Ufms, 222-824 - Vila Olinda, Campo Grande - MS, 79050-010",
+        "city": "Campo Grande",
+        "country": "Brasil",
+        "postalCode": "79332-090",
+        "state": "MS"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -54.6272,
+          -20.481191
+        ]
+      },
+      "properties": {
+        "name": "Norte Sul Plaza",
+        "phone": "(67) 3225-7586",
+        "address": "Av. Pres. Ernesto Geisel, 2300 - Jardim Joquei Club, Campo Grande - MS, 79051-485",
+        "city": "Campo Grande",
+        "country": "Brasil",
+        "postalCode": "79332-090",
+        "state": "MS"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -54.674103,
+          -20.465136
+        ]
+      },
+      "properties": {
+        "name": "Aeroporto Internacional de Campo Grande",
+        "phone": "(67) 3587-9338",
+        "address": "Av. Duque de Caxias, s/n - Vila Serradinho, Campo Grande - MS, 79101-901",
+        "city": "Campo Grande",
+        "country": "Brasil",
+        "postalCode": "79332090",
+        "state": "MS"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -54.616703,
+          -20.464894
+        ]
+      },
+      "properties": {
+        "name": "Praça Ary Coelho",
+        "phoneFormatted": "(67) 3437-9338",
+        "address": "Rua 14 de Julho - Centro, Campo Grande - MS, 79002-071",
+        "city": "Campo Grande",
+        "country": "Brasil",
+        "postalCode": "79332090",
+        "state": "MS"
+      }
+    }
+  ]
+};
