@@ -98,11 +98,12 @@ def get_avaliacoes(request):
     if request.session.has_key('username'):
         user = request.session['username']
         userid = list(Usuários.objects.filter(user=user).values('id'))[0]['id']
-        avaliacoes = Avaliações.objects.filter(user__id=userid)
-        for avaliacao in avaliacoes:
-            avaliacoes_arr.append({'empresa':list(avaliacao.empresa.all())[0].name, 'comentario':avaliacao.comment, 'nota':avaliacao.grade})
-
-    return render(request, "registros/minhas-avaliacoes.html", {"user" : user, "avaliacoes" : avaliacoes_arr})
+        avaliacoes = Avaliações.objects.filter(user_id=userid)
+        return render(request, "registros/minhas-avaliacoes.html", {"user" : user, "avaliacoes" : avaliacoes})
+    else:
+        return render(request, "registros/minhas-avaliacoes.html", {
+            "message": "Você não possui avaliações"
+        })
 
 def obter_empresas(request):
     empresas = Empresas.objects.all()
@@ -140,6 +141,7 @@ def generate_avaliacao(request):
         erros['ok'] = False
         return JsonResponse(erros)
 
+        
     if len(comment) > 300:
         erros['comentarios'] = 'Máximo de 300 caractéres'
         erros['ok'] = False

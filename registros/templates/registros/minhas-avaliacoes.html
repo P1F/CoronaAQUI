@@ -8,12 +8,13 @@
           <th>Nota</th>
           <th>Comentário</th>
         </tr>
+    <a href="{% url 'index' %} ">Voltar para página anterior</a>
 
         {% for avaliacao in avaliacoes %}
         <tr>
-            <td>{{ avaliacao.empresa }}</td>
-            <td>{{ avaliacao.nota }}</td>
-            <td>{{ avaliacao.comentario }}</td>
+            <td>{{ avaliacao.empresaname }}</td>
+            <td>{{ avaliacao.grade }}</td>
+            <td>{{ avaliacao.comment }}</td>
         </tr>
         {% endfor %}
     </table>
