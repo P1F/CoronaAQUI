@@ -60,23 +60,59 @@ window.onload = function(){
             var destination = directions.getDestination();
         });
 
-        document.getElementsByClassName('suggestions')[0].addEventListener('mousedown', (e) => carrega_empresa(e))
+        document.getElementsByClassName('suggestions')[0].addEventListener('mousedown', () => carrega_empresa('menu'))
 
     });
 
-    async function carrega_empresa(e){
+    var geojson = {
+        type: 'FeatureCollection',
+        features: []
+    };
+    var xhr = new XMLHttpRequest;
+    xhr.open('GET', 'registros/obter-empresas')
+    xhr.onreadystatechange = function () {
+        if(xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+            var resp = JSON.parse(xhr.responseText)
+            geojson.features = resp['data']
+            geojson.features.forEach(function(marker) {
+                var el = document.createElement('div');
+                el.className = 'marker';
+                el.addEventListener('click', function(e){
+                    carrega_empresa('mapa')
+                })
+
+                new mapboxgl.Marker(el)
+                .setLngLat(marker.geometry.coordinates)
+                .setPopup(new mapboxgl.Popup({ offset: 25 }) // add popups
+                .setHTML('<h3 id="mapa-nome">' + marker.properties.title + '</h3><h4 id="mapa-endereco">'+marker.properties.description+'</h4><div long ='+marker.geometry.coordinates[0] +' lat ='+marker.geometry.coordinates[1] +'></div>'))
+                .addTo(map);
+            });
+        }
+    }
+    xhr.send()
+
+    async function carrega_empresa(type){
         document.getElementById('inforotate').style.display = 'block'
         document.getElementById('info-hide-show').classList.add("hide")
 
         data = {'nome': '', 'endereco': '', 'lat': 0.0, 'long': 0.0}
-        await new Promise(r=>setTimeout(r, 2500))
-        var endereco = document.getElementsByClassName('mapboxgl-ctrl-geocoder--input')[0].value
-        idx = endereco.indexOf(', ')
-        coord = map.getCenter()
-        data['lat'] = coord.lat
-        data['long'] = coord.lng
-        data['nome'] = endereco.substring(0, idx)
-        data['endereco'] = endereco.substring(idx+2)
+        if (type=='menu'){
+            await new Promise(r=>setTimeout(r, 2500))
+            var endereco = document.getElementsByClassName('mapboxgl-ctrl-geocoder--input')[0].value
+            idx = endereco.indexOf(', ')
+            coord = map.getCenter()
+            data['lat'] = coord.lat
+            data['long'] = coord.lng
+            data['nome'] = endereco.substring(0, idx)
+            data['endereco'] = endereco.substring(idx+2)
+        }else{
+            await new Promise(r=>setTimeout(r, 1000))
+            var pop = document.getElementsByClassName('mapboxgl-popup-content')[0]
+            data['lat'] = pop.children[3].attributes[1].value
+            data['long'] = pop.children[3].attributes[0].value
+            data['nome'] = pop.children[1].textContent
+            data['endereco'] = pop.children[2].textContent
+        }
 
         var xhr = new XMLHttpRequest;
         xhr.open('POST', 'registros/buscar-empresa')

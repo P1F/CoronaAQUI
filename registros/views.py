@@ -108,15 +108,19 @@ def get_avaliacoes(request):
 
 def obter_empresas(request):
     empresas = Empresas.objects.all()
-    dicionario = {}
+    pontos = []
     for empresa in empresas:
-        print(empresa.latitude)
-    return JsonResponse(dicionario)
+        ponto = {}
+        ponto['type'] = 'feature'
+        ponto['geometry'] = {'type':'Point', 'coordinates':[empresa.longitude, empresa.latitude]}
+        ponto['properties'] = {'title':empresa.name, 'description':empresa.address}
+        pontos.append(ponto)
+    return JsonResponse({'data':pontos})
 
 def buscar_empresa(request):
     data = json.loads(request.body)
-    lat = round(data['lat'], 4)
-    longi = round(data['long'], 4)
+    lat = round(float(data['lat']), 4)
+    longi = round(float(data['long']), 4)
     empresa = Empresas.objects.filter(longitude = longi, latitude = lat)
     if empresa.count() == 0:
         Empresas(address=data['endereco'], name = data['nome'], grade = -1, longitude = longi, latitude = lat).save()
