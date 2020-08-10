@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.http import JsonResponse
 import re
 
-from .models import Empresas, Usuários, Avaliações
+from .models import Empresas, Usuários, Avaliações, CustomerForm
 # Create your views here.
 
 def index(request):
@@ -14,12 +14,26 @@ def index(request):
     })
 
 def avaliacao(request, empresa_id):
+    form = CustomerForm()
+    if request.session.has_key('username'):
+        user = request.session['username']
+        userid = list(Usuários.objects.filter(user=user).values('id'))[0]['id']
+
     empresa = Empresas.objects.get(id=empresa_id)
-    avaliacao = Avaliações.objects.filter(empresa=empresa_id)
+    avaliacao = Avaliações.objects.filter(empresa_id=empresa_id)
+
+    if request.method == 'POST':
+        data = dict(request.POST)
+        comment = data['comment'][0]
+        grade = data['grade'][0]
+        form = CustomerForm(request.POST)
+    if form.is_valid():
+        Avaliações(comment=comment, grade=grade, empresa_id=empresa_id, user_id=userid).save()
     return render(request, "registros/avaliacao.html", {
         "empresa": empresa,
-        "avaliacoes": avaliacao
-    })
+        "avaliacoes": avaliacao,
+        "form": form
+        })
 
 def registrar_usuario(request):
     if request.method == 'POST':
@@ -93,12 +107,12 @@ def get_avaliacoes(request):
     if request.session.has_key('username'):
         user = request.session['username']
         userid = list(Usuários.objects.filter(user=user).values('id'))[0]['id']
-        avaliacoes = Avaliações.objects.filter(user__id=userid)
-        for avaliacao in avaliacoes:
-            avaliacoes_arr.append({'empresa':list(avaliacao.empresa.all())[0].name, 'comentario':avaliacao.comment, 'nota':avaliacao.grade})
-
-    return render(request, "registros/minhas-avaliacoes.html", {"user" : user, "avaliacoes" : avaliacoes_arr})
-
+        avaliacoes = Avaliações.objects.filter(user_id=userid)
+        return render(request, "registros/minhas-avaliacoes.html", {"user" : user, "avaliacoes" : avaliacoes})
+    else:
+        return render(request, "registros/minhas-avaliacoes.html", {
+            "message": "Você não possui avaliações"
+        })
 def obter_empresas(request):
     empresas = Empresas.objects.all()
     dicionario = {}

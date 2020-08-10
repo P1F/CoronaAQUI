@@ -1,14 +1,18 @@
 {% extends "registros/layout.html" %}
 
 {% block body %}
+
+    {% if message %}
+        <div>{{ message }}</div>
+    {% endif %}
+
     <h1>Avaliações de: {{ user }}</h1>
     <ul>
+        <h2>Avaliações</h2>
         {% for avaliacao in avaliacoes %}
-            <li>
-                    Empresa: {{ avaliacao.empresa }}<br>
-                    Nota: {{ avaliacao.nota }}<br>
-                    Comentário: {{ avaliacao.comentario }}
-            </li><br>
+            <li>{{ avaliacao }} </li>
+        {% empty %}
+            <li>Empresa não avaliada ainda.</li>
         {% endfor %}
     </ul>
 
